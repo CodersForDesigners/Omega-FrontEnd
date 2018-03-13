@@ -1,0 +1,29 @@
+
+.body {
+	font-family: monospace;
+}
+
+.page-wrapper {
+	margin: 0 auto;
+	max-width: 600px;
+}
+
+.container-units-list {
+	/*text-align: center;*/
+}
+
+.units-list {
+	max-height: 36vh;
+	border: 1px dashed;
+	padding: 50px;
+	overflow: auto;
+}
+
+.unit-info {
+	/*text-align: center;*/
+}
+
+.container-enquiry-form {}
+.enquiry-form {
+	/*text-align: center;*/
+}

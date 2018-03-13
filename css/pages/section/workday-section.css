@@ -1,0 +1,170 @@
+/*
+ * Workday Section
+ */
+
+.workday-section {
+	position: relative;
+	font-size: 0;
+	overflow-x: hidden;
+}
+
+.workday-section .workday {
+	position: relative;
+	padding: 40px 0 520px;
+	z-index: 3;
+}
+
+.workday-section .workday .title {
+	margin-bottom: 30px;
+	line-height: 1;
+}
+
+.workday-section .workday .point .heading {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+
+.workday-section .workday .point .description {
+	margin-bottom: 30px;
+	line-height: 1.375;
+}
+
+.workday-section .workday .point .heading span {
+	display: inline-block;
+}
+
+.workday-section .workday .point .heading .svg-icon {
+	display: inline-block;
+	position: absolute;
+	width: 20px;
+	top: 0;
+	left: -8.33333%;
+	transform: translateX(-50%);
+}
+
+.workday-section .mg-bg.engineer {
+	width: 400px;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	z-index: 1;
+	transform: translateX(-50%);
+	/*border-top-left-radius: 100%;*/
+	overflow: hidden; /* NOT NEEDED ONCE REPLACED BY VIDEO */
+}
+
+.workday-section .mg-bg.engineer * {
+	width: 100%;
+	max-width: none;
+}
+
+.workday-section .mg-bg.engineer:after {
+	content: '';
+	display: block;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50%;
+	/*right: 0;*/
+	/*bottom: 0;*/
+	background: linear-gradient(to bottom, var(--off-dark), transparent);
+}
+
+
+
+@media( min-width: 640px )  {
+	.workday-section .workday {
+		padding: 100px 0;
+	}
+
+	.workday-section .workday .title {
+		margin-bottom: 50px;
+	}
+
+	.workday-section .workday .point .heading {
+		margin-bottom: 15px;
+	}
+
+	.workday-section .workday .point .description {
+		margin-bottom: 50px;
+		line-height: 1.5;
+	}
+
+	.workday-section .workday .point .heading .svg-icon {
+		width: 24px;
+	}
+
+	.workday-section .mg-bg.engineer {
+		width: 800px;
+	}
+
+	.workday-section .mg-bg.engineer:after {
+		display: none;
+	}
+}
+
+
+
+
+@media( min-width: 1040px ) {
+	.workday-section .workday {
+		padding: 180px 0;
+	}
+
+	.workday-section .workday .title {
+		margin-bottom: 80px;
+	}
+
+	.workday-section .workday .point .heading {
+		font-size: 3.2rem;
+		margin-bottom: 20px;
+	}
+
+	.workday-section .workday .point .description {
+		margin-bottom: 80px;
+		line-height: 1.75;
+	}
+	
+	.workday-section .workday .point .heading .svg-icon {
+		width: 40px;
+	}
+
+	.workday-section .mg-bg.engineer {
+		width: 1200px;
+	}
+
+}
+
+
+
+
+@media( min-width: 1380px ) {
+	.workday-section .workday {
+		padding: 240px 0;
+	}
+
+	.workday-section .workday .title {
+		margin-bottom: 120px;
+	}
+
+	.workday-section .workday .point .heading {
+		font-size: 4.0rem;
+		margin-bottom: 40px;
+	}
+
+	.workday-section .workday .point .description {
+		margin-bottom: 120px;
+		line-height: 2;
+	}
+
+	.workday-section .workday .point .heading .svg-icon {
+		width: 48px;
+	}
+
+	.workday-section .mg-bg.engineer {
+		width: 1600px;
+	}
+}

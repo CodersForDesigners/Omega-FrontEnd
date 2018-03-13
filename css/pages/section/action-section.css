@@ -1,0 +1,203 @@
+/*
+ * Action Section
+ */
+
+.action-section {
+	position: relative;
+	padding: 40px 0;
+	overflow: hidden;
+}
+	
+.action-section .action {
+	position: relative;
+	z-index: 2;
+}
+
+.action-section .action .heading {}
+
+.action-section .action .sub-heading {
+	margin-top: 10px;
+	text-transform: none;
+	font-weight: 400;
+}
+
+.action-section .action .action-button {
+	margin-top: 20px;
+}
+
+.action-section .handbook {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	bottom: 0;
+	z-index: 1;
+	width: 400px;
+	transform: translateX(-50%);
+}
+
+.action-section .handbook img {
+	position: absolute;
+	width: 200px;
+	left: 270px;
+	bottom: 30px;
+}
+
+
+@media( min-width: 640px )  {
+	.action-section {
+		padding: 100px 0;
+	}
+
+	.action-section .action {}
+
+	.action-section .action .heading {}
+
+	.action-section .action .sub-heading {
+		margin-top: 15px;
+		line-height: 1.5;
+	}
+
+	.action-section .action .action-button {
+		margin-top: 30px;
+	}
+
+	.action-section .handbook {
+		width: 800px;
+	}
+
+	.action-section .handbook img {
+		width: 320px;
+		left: 450px;
+		bottom: 50px;
+	}
+}
+
+
+
+
+@media( min-width: 1040px ) {
+	.action-section {
+		padding: 180px 0;
+	}
+
+	.action-section .action {}
+
+	.action-section .action .heading {
+		text-align: right;
+	}
+
+	.action-section .action .sub-heading {
+		text-align: right;
+		margin-top: 20px;
+	}
+
+	.action-section .action .action-button {
+		text-align: right;
+		margin-top: 40px;
+	}
+
+	.action-section .handbook {
+		width: 1200px;
+	}
+
+	.action-section .handbook img {
+		width: 420px;
+		left: 760px;
+		bottom: 70px;
+	}
+}
+
+
+
+
+@media( min-width: 1380px ) {
+	.action-section {
+		padding: 240px 0;
+	}
+
+	.action-section .action .sub-heading {
+		margin-top: 30px;
+	}
+
+	.action-section .action .action-button {
+		margin-top: 80px;
+	}
+
+	.action-section .handbook {
+		width: 1600px;
+	}
+
+	.action-section .handbook img {
+		width: 600px;
+		left: 950px;
+		bottom: 80px;
+	}
+}
+
+
+
+
+
+
+
+.action-section .action-form {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+	padding: 30px;
+}
+
+.action-section .action-form .heading {
+	margin-bottom: 10px;
+}
+
+.action-section .action-form label {
+	display: block;
+	line-height: 1.375;
+	margin-top: 7px;
+}
+
+@media( min-width: 640px )  {
+	.action-section .action-form {
+		padding-top: 100px;
+	}
+
+	.action-section .action-form .heading {
+		margin-bottom: 20px;
+	}
+
+	.action-section .action-form label {
+		line-height: 2;
+		margin-top: 10px;
+	}
+}
+
+@media( min-width: 1040px ) {
+	.action-section .action-form {
+		padding-top: 120px;
+	}
+
+	.action-section .action-form .heading {
+		margin-bottom: 40px;
+		font-size: 3.2rem;
+	}
+}
+
+@media( min-width: 1380px ) {
+	.action-section .action-form {
+		padding-top: 180px;
+	}
+
+	.action-section .action-form .heading {
+		margin-bottom: 60px;
+		font-size: 4.0rem;
+	}
+
+	.action-section .action-form label {
+		margin-top: 15px;
+	}
+}
+

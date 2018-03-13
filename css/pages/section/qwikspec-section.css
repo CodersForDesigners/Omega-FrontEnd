@@ -1,0 +1,291 @@
+/*
+ * QwikSpec Section
+ */
+
+.qwikspec-section {
+	position: relative;
+	padding-top: 40px;
+	padding-bottom: 190px;
+	background: var(--black);
+	overflow: hidden;
+}
+
+.qwikspec-section .container {
+	position: relative;
+	z-index: 2; 
+}
+
+.qwikspec-section .sales-head-list {
+	margin-top: 20px;
+	margin-left: 50%;
+	width: 400px;
+	transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+
+.qwikspec-section .sales-head-list .slick-list {
+	overflow: visible;
+}
+
+.qwikspec-section .sales-head {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	font-size: 0;
+	margin: 10px;
+	overflow: hidden;
+	border-radius: 3px;
+	background-color: var(--light);
+	box-shadow: 0px 3px 5px rgba(0,0,0,0.2), inset 0px -2px 3px rgba(0,0,0,0.1);
+}
+
+.qwikspec-section .sales-head img {
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	width: 100%;
+}
+
+.qwikspec-section .sales-head .info {
+	padding: 25px;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	/*background-color: rgba(0,0,255,0.3);*/
+}
+
+.qwikspec-section .sales-head .info .name {
+	text-transform: none;
+	color: var(--dark);
+}
+
+.qwikspec-section .sales-head .info .region {
+	margin-top: 5px;
+	text-transform: uppercase;
+}
+
+.qwikspec-section .sales-head .info .dets {
+	display: block;
+	margin-top: 95px;
+	padding: 12px;
+	border-radius: 3px;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.qwikspec-section .sales-head .info .dets span,
+.qwikspec-section .sales-head .info .dets img {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.qwikspec-section .sales-head .info .dets .phone img {
+	width: 20px;
+	margin-right: 5px;
+}
+
+.qwikspec-section .sales-head .info .dets .phone {
+	font-size: 14px;
+	line-height: 1;
+	margin-bottom: 5px;
+}
+
+.qwikspec-section .sales-head .info .dets .email img {
+	width: 20px;
+	margin-right: 5px;
+}
+
+.qwikspec-section .sales-head .info .dets .email {
+	font-size: 12px;
+	line-height: 1;
+}
+
+.qwikspec-section .about .title {
+	margin-top: 40px;
+}
+
+.qwikspec-section .about .title span {
+	display: inline-block;
+}
+
+.qwikspec-section .about .title .logo {
+	transform: translateY(10px);
+	display: inline-block;
+	width: 174px;
+	margin-left: 8px;
+}
+
+.qwikspec-section .about .description {
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+.qwikspec-section .about .description p {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.qwikspec-section .team-photo {
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+	width: 460px;
+	max-width: none;
+}
+
+@media( min-width: 640px )  {
+
+	.qwikspec-section {
+		padding-top: 100px;
+		padding-bottom: 300px;
+	}
+
+	.qwikspec-section .team-photo {
+		width: 800px;
+	}
+
+	.qwikspec-section .sales-head-list {
+		width: 530px;
+	}
+
+	.qwikspec-section .sales-head .info {
+		padding: 20px;
+	}
+	.qwikspec-section .sales-head .info .region {
+		margin-top: 10px;
+	}
+	.qwikspec-section .sales-head .info .dets {
+		margin-top: 85px;
+	}
+
+	.qwikspec-section .about .title {
+		margin-top: 40px;
+	}
+
+	.qwikspec-section .about .title .logo {
+		transform: translateY(12px);
+		width: 220px;
+		margin-left: 12px;
+		margin-right: 12px;
+	}
+
+	.qwikspec-section .about .description {
+		margin-top: 15px;
+		column-count: 2;
+		column-gap: 20px;
+	}
+}
+
+@media( min-width: 1040px ) {
+	.qwikspec-section {
+		padding-top: 180px;
+		padding-bottom: 520px;
+	}
+
+	.qwikspec-section .sales-head-list {
+		margin-top: 40px;
+		width: 870px;
+	}
+	
+	.qwikspec-section .sales-head {
+		margin: 15px;
+	}
+
+	.qwikspec-section .sales-head .info .dets {
+		margin-top: 95px;
+	}
+
+	.qwikspec-section .sales-head .info .dets .phone {
+		font-size: 16px;
+	}
+
+	.qwikspec-section .sales-head .info .dets .email {
+		font-size: 13px;
+	}
+
+	.qwikspec-section .about .title {
+		margin-top: 100px;
+	}
+
+	.qwikspec-section .about .title .logo {
+		transform: translateY(20px);
+		width: 340px;
+		margin-left: 20px;
+		margin-right: 18px;
+	}
+
+	.qwikspec-section .about .description {
+		margin-top: 20px;
+		column-gap: 30px;
+	}
+
+	.qwikspec-section .team-photo {
+		width: 1400px;
+	}
+}
+
+@media( min-width: 1380px ) {
+	.qwikspec-section {
+		padding-top: 240px;
+		padding-bottom: 680px;
+	}
+
+	.qwikspec-section .sales-head-list {
+		width: 1170px;
+	}
+
+	.qwikspec-section .sales-head {
+		margin: 25px;
+	}
+
+	.qwikspec-section .sales-head .info {
+		padding: 25px;
+	}
+	.qwikspec-section .sales-head .info .region {
+		margin-top: 15px;
+	}
+	
+	.qwikspec-section .sales-head .info .dets {
+		margin-top: 145px;
+	}
+
+	.qwikspec-section .sales-head .info .dets .phone img {
+		width: 24px;
+	}
+
+	.qwikspec-section .sales-head .info .dets .phone {
+		font-size: 18px;
+	}
+
+	.qwikspec-section .sales-head .info .dets .email img {
+		width: 24px;
+	}
+
+	.qwikspec-section .sales-head .info .dets .email {
+		font-size: 15px;
+	}
+
+	.qwikspec-section .about .title {
+		margin-top: 200px;
+	}
+
+	.qwikspec-section .about .title .logo {
+			transform: translateY(25px);
+			width: 450px;
+			margin-left: 28px;
+			margin-right: 25px;
+		}
+	.qwikspec-section .about .description {
+			margin-top: 40px;
+			column-gap: 40px;
+		}
+
+	.qwikspec-section .team-photo {
+		width: 1800px;
+	}
+}

@@ -1,0 +1,456 @@
+/*
+ * Pricing Section
+ */
+
+.pricing-section {
+	position: relative;
+	padding: 40px 0;
+	overflow-x: hidden;
+	background: linear-gradient(to bottom, var(--off-neutral), var(--light));
+}
+
+.pricing-section .pillar-list {
+	margin-left: 50%;
+	width: 400px;
+	transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+
+.pricing-section .pillar-list .pillar {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	height: 880px;
+	margin: 10px;
+	border-radius: 3px;
+	background-color: var(--light);
+	box-shadow: 0px 3px 5px rgba(0,0,0,0.2), inset 0px -2px 3px rgba(0,0,0,0.1);
+}
+
+.pricing-section .pillar-list .slick-list {
+	overflow: visible;
+}
+
+.pricing-section .pillar-list .pillar .table-head {
+	padding: 15px;
+	color: var(--light);
+	background-color: var(--off-dark);
+	transition: background .2s ease-in-out;
+}
+
+.pricing-section .pillar-list .pillar:hover .table-head,
+.pricing-section .pillar-list .pillar:focus .table-head {
+	color: var(--blue);
+	background-color: var(--dark);
+}
+
+.pricing-section .pillar-list .pillar .table-head .heading {
+	letter-spacing: 1px;
+}
+
+.pricing-section .pillar-list .pillar .table-head .sub-heading {
+	opacity: 0.5;
+}
+
+
+.pricing-section .pillar-list .pillar .table-row {
+	padding: 10px 15px 15px;
+}
+.pricing-section .pillar-list .pillar .table-row .title {
+	display: block;
+	color: var(--neutral);
+	margin-top: 10px;
+}
+
+.pricing-section .pillar-list .pillar .table-row .description {
+	display: block;
+	font-size: 1.2rem;
+}
+
+.pricing-section .pillar-list .pillar .table-row .description.lines-2 {
+	height: 32px;
+}
+
+.pricing-section .pillar-list .pillar .table-row .description.lines-3 {
+	height: 48px
+}
+
+.pricing-section .pillar-list .pillar .table-foot {
+	padding: 10px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	color: var(--light);
+	background-color: var(--off-dark);
+	transition: background .2s ease-in-out;
+}
+
+.pricing-section .pillar-list .pillar:hover .table-foot,
+.pricing-section .pillar-list .pillar:focus .table-foot {
+	color: var(--blue);
+	background-color: var(--dark);
+}
+
+.pricing-section .pillar-list .pillar .table-foot .button {
+	color: var(--off-dark);
+	background-color: var(--light);
+	transition: background .2s ease-in-out;
+}
+
+.pricing-section .pillar-list .pillar:hover .table-foot .button,
+.pricing-section .pillar-list .pillar:focus .table-foot .button {
+	color: var(--light);
+	background-color: var(--blue);
+}
+
+.pricing-section .pillar-list .pillar hr {
+	margin: 10px 15px;
+	border-color: var(--off-neutral);
+}
+
+
+.pricing-section .pillar-list .pillar .table-foot {
+	padding: 15px;
+	color: var(--light);
+	background-color: var(--off-dark);
+}
+
+.pricing-section .pillar-list .pillar .table-foot .price {
+	display: block;
+	margin-bottom: 5px;
+	text-align: center;
+	color: var(--off-neutral);
+}
+
+.pricing-section .pillar-list .pillar .table-foot .price strong {
+	color: var(--blue)
+}
+
+.pricing-section .pillar-list .pillar .table-foot .setup {
+	text-align: center;
+	margin-bottom: 10px;
+	opacity: 0.5;
+}
+
+
+/* -- Tech -- */
+
+.pricing-section .tech {
+	margin-top: 20px;
+}
+
+.pricing-section .tech a {
+	color: inherit;
+	text-decoration: none;
+	display: inline-block;
+}
+
+/*.pricing-section .tech .heading {
+	margin-bottom: 20px;
+}*/
+
+.pricing-section .tech .title {
+	color: var(--neutral);
+	display: block;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+.pricing-section .tech .badge {
+	display: inline-block;
+}
+
+.pricing-section .tech .badge img {
+	width: 120px;
+}
+
+.pricing-section .tech .icon {
+	display: inline-block;
+}
+
+.pricing-section .tech .icon img {
+	width: 40px;
+}
+
+.pricing-section .tech .mobile{
+	width: 100%;
+}
+
+.pricing-section .tech .web {
+	margin-top: 15px;
+	width: 100%;
+}
+
+.pricing-section .tech .mobile .badge,
+.pricing-section .tech .web .icon {
+	font-size: 0;
+}
+
+.pricing-section .tech .mobile .badge {
+	margin-right: 3px;
+}
+
+.pricing-section .tech .web .icon {
+	margin-right: 10px;
+}
+
+.pricing-section .tech .secure .icon {
+	font-size: 10px;
+	color: var(--off-dark);
+	margin-right: 20px;
+}
+.pricing-section .tech .secure .icon:last-child {
+	margin-right: 0;
+}
+
+.pricing-section .tech .secure .icon img,
+.pricing-section .tech .secure .icon span {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+
+.pricing-section .tech .secure {
+	margin-top: 20px;
+	width: 100%;
+}
+
+
+@media( min-width: 640px )  {
+	.pricing-section {
+		padding: 100px 0;
+	}
+
+	.pricing-section .pillar-list {
+		width: 530px;
+	}
+
+	.pricing-section .pillar-list .pillar {
+		height: 890px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description {
+		font-size: 1.1rem;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description.lines-2 {
+		height: 30px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description.lines-3 {
+		height: 45px
+	}
+
+	/* -- Tech -- */
+
+	.pricing-section .tech .badge img {
+		width: 150px;
+	}
+
+	.pricing-section .tech {
+		margin-top: 60px;
+	}
+
+	/*.pricing-section .tech .heading {
+		margin-bottom: 20px;
+	}*/
+
+	.pricing-section .tech .icon img {
+		width: 50px;
+	}
+
+	.pricing-section .tech .mobile {
+		width: auto;
+	}
+
+	.pricing-section .tech .mobile .badge {
+		margin-right: 7px;
+	}
+
+	.pricing-section .tech .mobile .badge:last-child {
+		margin-right: 0;
+	}
+
+	.pricing-section .tech .web {
+		width: auto;
+		margin-top: 0;
+		margin-left: 20px;
+	}
+
+	.pricing-section .tech .web .icon {
+		margin-right: 2px;
+	}
+
+	.pricing-section .tech .secure {
+		margin-top: 30px;
+	}
+
+}
+
+
+
+
+@media( min-width: 1040px ) {
+	.pricing-section {
+		padding: 180px 0;
+	}
+
+	.pricing-section .pillar-list {
+		width: 870px;
+	}
+
+	.pricing-section .pillar-list .pillar {
+		height: 910px;
+		margin: 15px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description {
+		font-size: 1.2rem;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description.lines-2 {
+		height: 32px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description.lines-3 {
+		height: 48px
+	}
+
+	/* -- Tech -- */
+
+	.pricing-section .tech .mobile .badge {
+		margin-right: 10px;
+	}
+
+	.pricing-section .tech .web {
+		margin-left: 15px;
+	}
+
+	.pricing-section .tech .web .icon {
+		margin-right: 10px;
+	}
+
+	.pricing-section .tech .secure {
+		width: auto;
+		margin-top: 0;
+		padding-left: 20px;
+		margin-left: 10px;
+		border-left: 2px solid var(--off-neutral);
+	}
+
+	.pricing-section .tech .secure .icon {
+		font-size: 12px;
+	}
+
+
+}
+
+
+
+
+@media( min-width: 1380px ) {
+	.pricing-section {
+		padding: 240px 0;
+	}
+
+	.pricing-section .pillar-list {
+		width: 1170px;
+	}
+
+	.pricing-section .pillar-list .pillar {
+		height: 1240px;
+		margin: 25px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description {
+		font-size: 1.4rem;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description.lines-2 {
+		height: 38px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .description.lines-3 {
+		height: 57px
+	}
+
+	.pricing-section .pillar-list .pillar .table-head {
+		padding: 25px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row .title {
+		margin-top: 20px;
+		margin-bottom: 5px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-row {
+		padding: 5px 25px 15px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-foot {
+		padding: 25px;
+	}
+
+	.pricing-section .pillar-list .pillar hr {
+		margin: 10px 25px;
+	}
+
+
+	.pricing-section .pillar-list .pillar .table-foot .price {
+		margin-bottom: 10px;
+	}
+
+	.pricing-section .pillar-list .pillar .table-foot .setup {
+		margin-bottom: 15px;
+	}
+
+
+	/* -- Tech -- */
+
+	.pricing-section .tech {
+		margin-top: 80px;
+	}
+
+	/*.pricing-section .tech .heading {
+		margin-bottom: 30px;
+	}*/
+
+	.pricing-section .tech .badge img {
+		width: 180px;
+	}
+
+	.pricing-section .tech .icon img {
+		width: 60px;
+	}
+
+	.pricing-section .tech .mobile .badge {
+		margin-right: 15px;
+	}
+
+	.pricing-section .tech .web {
+		margin-left: 30px;
+	}
+
+
+	.pricing-section .tech .web .icon {
+		margin-right: 10px;
+	}
+
+	.pricing-section .tech .web .title,
+	.pricing-section .tech .secure .title {
+		padding-left: 7px;
+	}
+
+	.pricing-section .tech .secure {
+		padding-left: 40px;
+		margin-left: 100px;
+	}
+
+	.pricing-section .tech .secure .icon {
+		font-size: 14px;
+	}
+}
