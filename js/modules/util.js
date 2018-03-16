@@ -1,6 +1,33 @@
 
 window.__UTIL__ = { };
 
+__UTIL__.debounceHandler = function debounceHandler ( eventHandler, timeOffset ) {
+
+	timeOffset = timeOffset || 51; // 51 milli-seconds
+	var animationFrameId = null;
+	var timeoutId = null;
+
+	return function ( event, otherArgs ) {
+
+		if ( timeoutId ) {
+			window.clearTimeout( timeoutId );
+			timeoutId = null;
+		}
+		timeoutId = window.setTimeout( function () {
+
+			if ( animationFrameId ) {
+				window.cancelAnimationFrame( animationFrameId );
+				animationFrameId = null;
+			}
+			animationFrameId = window.requestAnimationFrame(
+				eventHandler.bind( null, event, otherArgs )
+			);
+
+		}, timeOffset );
+	};
+
+}
+
 __UTIL__.renderTemplate = function () {
 
 	var d;

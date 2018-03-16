@@ -6,3 +6,7 @@
 # Opening Spreadsheet with SheetJS
 - Have the column names be on the first row
 - Make sure the column names don't have any trailing spaces
+
+# todo
+- [ ] Sort out modifications
+- [ ] Look at prospects as well in the form validation

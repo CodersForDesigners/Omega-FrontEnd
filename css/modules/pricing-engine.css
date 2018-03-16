@@ -12,18 +12,36 @@
 	/*text-align: center;*/
 }
 
-.units-list {
+.units-list:not( :empty ) {
 	max-height: 36vh;
 	border: 1px dashed;
 	padding: 50px;
 	overflow: auto;
+	overscroll-behavior: contain;
+}
+
+.unit-list-item {
+	padding: 1rem;
+	border-bottom: 1px dotted;
+	cursor: pointer;
 }
 
 .unit-info {
 	/*text-align: center;*/
 }
 
+.unit-mods {
+	display: none;
+}
+.unit-info:not( :empty ) ~ .unit-mods {
+	display: block;
+}
+
 .container-enquiry-form {}
 .enquiry-form {
 	/*text-align: center;*/
+}
+
+.loading-indicator {
+	color: #FFCC74;
 }
