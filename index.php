@@ -82,41 +82,7 @@
 
 		</section>
 
-		<section class="container section-unit-info">
-
-			<div class="unit-info js_unit_info"></div>
-
-			<form class="unit-mods js_unit_mods">
-				<div class="js_unit_mod hidden">
-					<label>
-						<span>Discount:</span>
-						<input class="js_rate_per_sqft_discount" type="number" name="enquiry-discount">
-					</label>
-				</div>
-				<div class="js_unit_mod js_mod_toggle_collapsable_bedroom_wall hidden">
-					<label>
-						<span>Collapsible Third Bedroom</span>
-						<input type="checkbox" name="enquiry-mods">
-					</label>
-				</div>
-				<div class="js_unit_mod js_mod_toggle_living_dining_room_swap hidden">
-					<label>
-						<span>Living Dining Swap</span>
-						<input type="checkbox" name="enquiry-mods">
-					</label>
-				</div>
-				<div class="js_unit_mod hidden">
-					<label>
-						<span>Multi-purpose Space</span>
-						<select name="enquiry-mods">
-							<option value="e">Open</option>
-							<option class="js_mod_toggle_pooja_room" value="f">Pooja Room</option>
-							<option class="js_mod_toggle_store_room" value="g">Store Room</option>
-						</select>
-					</label>
-				</div>
-			</form>
-
+		<section class="container section-unit-info js_section_unit_info">
 		</section>
 
 		<!-- Section: Enquiry Form -->
@@ -178,54 +144,6 @@
 
 
 
-
-<!-- Templates -->
-
-<script type="template" class="js_template_unit">
-	<li data-unit="{{ Unit }}" class="unit-list-item js_unit_view">
-		<span>{{ Unit }}</span>
-		<span>{{ Floor }} floor</span>
-		<span>{{ Sft }} sqft</span>
-	</li>
-</script>
-
-<script type="template" class="js_template_floor_availability">
-	<option value="{{ floor }}" {{ attrs }}>
-		{{ floor }} ({{ available }})
-	</option>
-</script>
-
-<template type="template" class="js_template_unit_information">
-	<h3>#{{ unit }}</h3>
-	<br>
-
-	<h4>Specs</h4>
-	<div>{{ bhk }} BHK</div>
-	<div>{{ floor }} floor</div>
-	<div>Super Built-up Area: {{ sft }} sqft</div>
-	<div>Garden / Terrace Area: {{ gardenterrace }} sqft</div>
-	<div>Corner Flat: {{ corner_flat }}</div>
-	<div>Car Park: {{ carpark_type }}</div>
-
-	<h4>Costs</h4>
-	<div>Rate per sqft: ₹{{ discounted_rate | INR }}</div>
-	<div>Basic cost: ₹{{ basiccost | INR }}</div>
-	<div>Car park: ₹{{ carkpark | INR }}</div>
-	<div>Basic cost including car park: ₹{{ basiccost_carpark | INR }}</div>
-	<div>Garden / Terrace: ₹{{ gardenterrace_charge | INR }}</div>
-	<div>Floor rise: ₹{{ floorise_charge | INR }}</div>
-	<div>Corner flat charge: ₹{{ cornerflat_charge | INR }}</div>
-	<div>Maintenance charges: ₹{{ maintenance_charges | INR }}</div>
-	<div>Statutory deposit: ₹{{ statutory_deposit | INR }}</div>
-	<div>Generator and STP: ₹{{ generator_stp | INR }}</div>
-	<div>Club membership: ₹{{ club_membership | INR }}</div>
-	<div>Legal charges: ₹{{ legal_charges | INR }}</div>
-	<div>Gross Total: ₹{{ total_gross | INR }}</div>
-	<div>GST: ₹{{ gst | INR }}</div>
-	<div>Grand Total: ₹{{ total_grand | INR }}</div>
-</template>
-
-<!-- END: Templates -->
 
 
 

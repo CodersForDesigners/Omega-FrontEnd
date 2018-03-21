@@ -34,28 +34,29 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 
 		// Build and plonk in the markup
 		// the Floor Selector list
-		var template = $( ".js_template_floor_availability" ).html();
-		var markup = "";
+		// var template = $( ".js_template_floor_availability" ).html();
+		// var markup = "";
 		// floorAvailabilityLists[ unitType ].forEach( function ( data ) {
 		// 	markup += __UTIL__.renderTemplate( template, data );
 		// } );
 		var floorAvailabilityList = getFloorAvailabilityListByType( allUnits, unitType );
-		floorAvailabilityList.forEach( function ( data ) {
-			markup += __UTIL__.renderTemplate( template, data );
-		} );
+		// floorAvailabilityList.forEach( function ( data ) {
+		// 	markup += __UTIL__.renderTemplate( template, data );
+		// } );
+		// $( ".js_set_floor" )
+		// 	.html( markup )
+		// 	.val( unitFilters.Floor )
 		$( ".js_set_floor" )
-			.html( markup )
-			.val( unitFilters.Floor )
+			.load( "server/templates/floor-availability.php", { floorAvailabilityList: floorAvailabilityList }, function () {
+					$( ".js_set_floor" ).val( unitFilters.Floor )
+			} )
 
 		// the Unit list
-		var template = $( ".js_template_unit" ).html();
-		var markup = "";
 		var units = getApartmentsBasedOnCriteria( allUnits, unitFilters )
-		units.forEach( function ( data ) {
-			markup += __UTIL__.renderTemplate( template, data );
-		} );
-		if ( ! markup.trim() ) markup = "<h3>No units found. :(</h3>";
-		$( ".js_units_list" ).html( markup );
+		$( ".js_units_list" ).load(
+			"server/templates/unit-list.php",
+			{ units: units }
+		);
 
 		// Re-enable the interface
 		$( ".js_ui_input" ).prop( "disabled", false );
@@ -77,14 +78,11 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		unitFilters.Floor = selectedFloor;
 
 		// Build and plonk in the markup
-		var template = $( ".js_template_unit" ).html();
-		var markup = "";
 		var units = getApartmentsBasedOnCriteria( allUnits, unitFilters )
-		units.forEach( function ( data ) {
-			markup += __UTIL__.renderTemplate( template, data );
-		} );
-		if ( ! markup.trim() ) markup = "<h3>No units found. :(</h3>";
-		$( ".js_units_list" ).html( markup );
+		$( ".js_units_list" ).load(
+			"server/templates/unit-list.php",
+			{ units: units }
+		);
 
 		// Re-enable the interface
 		$( ".js_ui_input" ).prop( "disabled", false );
@@ -95,33 +93,47 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 	// Show the Apartment's details
 	$( document ).on( "click", ".js_unit_view", function ( event ) {
 
+		var pricingEngine = window.__PRICING_ENGINE__;
+
 		// Get the unitId and set it to the UI state
 		var unitId = $( event.target ).closest( "[ data-unit ]" ).data( "unit" );
-
-		var unitParameters = window.__PRICING_ENGINE__.unitParameters;
+		var unitParameters = pricingEngine.unitParameters;
+		for ( var param in unitParameters ) {
+			unitParameters[ param ] = null;
+		}
 		unitParameters.unit = unitId;
 
-		// Calculate data from the spreadsheet
-		var unit = getComputedApartmentDetails( workbook, { unit: unitId } );
-		var unitData = window.__PRICING_ENGINE__.unitData;
-		unitData = unit;
+		// Assign unit constants to the local state
+		var unitIndex;
+		allUnits.some( function ( unit, index ) {
+			if ( unit.Unit == unitId ) {
+				unitIndex = index;
+				return true;
+			}
+		} );
+		pricingEngine.unitConstants = allUnits[ unitIndex ];
+
+		// Calculate data from the spreadsheet and assign to the local state
+		// var unit = getComputedApartmentDetails( workbook, { unit: unitId } );
+		// var unitData = pricingEngine.unitData;
+		// unitData = unit;
+		pricingEngine.unitData = getComputedApartmentDetails( workbook, { unit: unitId } );
 
 		// Build and plonk in the markup
-		var template = $( ".js_template_unit_information" ).html();
-		var markup = __UTIL__.renderTemplate( template, unit );
-		// Show / Hide the modification widgets accordingly
-		$( ".js_unit_mod" ).addClass( "hidden" );
-		if ( unit.mod_toggle_collapsable_bedroom_wall == 1 ) {
-			$( ".js_mod_toggle_collapsable_bedroom_wall" ).removeClass( "hidden" )
-		}
-		$( ".js_unit_info" ).html( markup );
+		$( ".js_section_unit_info" ).load(
+			"server/templates/unit-information.php",
+			$.extend( pricingEngine.unitConstants, pricingEngine.unitData, pricingEngine.unitParameters )
+		);
 
 		$( ".js_enquiry_form [ name = enquiry-unit ]" ).val( unitId );
 
 	} );
 
-	$( document ).on( "input", ".js_rate_per_sqft_discount", onCustomApartmentValues );
+	$( document ).on( "submit", ".js_unit_discount", onCustomApartmentValues );
 	$( document ).on( "change", ".js_mod_toggle_collapsable_bedroom_wall input", onCustomApartmentValues );
+	$( document ).on( "change", ".js_mod_toggle_living_dining_room_swap input", onCustomApartmentValues );
+	$( document ).on( "change", ".js_multipurpose_space select", onCustomApartmentValues );
+	$( document ).on( "change", ".js_mod_car_park_switch input", onCustomApartmentValues );
 
 
 	/*
@@ -146,7 +158,7 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 
 		// Make the request
 		var ajaxRequest = $.ajax( {
-			url: "server/get-lead-details.php",
+			url: "http://ser.om/get-lead",
 			method: "POST",
 			data: requestPayload
 		} )
@@ -154,20 +166,30 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 			var responseFormatted;
 			try {
 				responseFormatted = JSON.parse( response )
-			} catch ( e ) {}
-			console.log( responseFormatted )
-
-			if ( responseFormatted.status == "alright" ) {
-				var $enquiryForm = $( ".js_enquiry_form" );
-				$enquiryForm.find( "[ name='enquiry-name' ]" )
-					.val( responseFormatted.data.name );
-				$enquiryForm.find( "[ name='enquiry-email' ]" )
-					.val( responseFormatted.data.email );
+			} catch ( e ) {
+				responseFormatted = response
 			}
+			console.log( responseFormatted )
+			if ( typeof responseFormatted != "object" ) return;
 
+			var $enquiryForm = $( ".js_enquiry_form" );
+			$enquiryForm.find( "[ name='enquiry-name' ]" )
+				.val( responseFormatted.data.name );
+			$enquiryForm.find( "[ name='enquiry-email' ]" )
+				.val( responseFormatted.data.email );
+		} )
+		.fail( function ( jqXHR ) {
+			var responseFormatted;
+			try {
+				responseFormatted = JSON.parse( jqXHR.responseText )
+			} catch ( e ) {
+				responseFormatted = jqXHR.responseText;
+			}
+			console.log( responseFormatted )
+		} )
+		.always( function () {
 			// Hide the loading indicator
 			$loadingIndicator.addClass( "hidden" );
-
 		} )
 
 	} );
@@ -180,12 +202,12 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		event.preventDefault();
 
 		var $form = $( event.target );
-		var $enquiryForm = $( ".js_lead_query_form" );
+		var $leadFetchForm = $( ".js_lead_query_form" );
 		var $apartmentModsForm = $( ".js_unit_mods" );
 
 		// Disable the input fields
 		$form.find( "input, select, textarea" ).prop( "disabled", true );
-		$enquiryForm.find( "input, select, textarea" ).prop( "disabled", true );
+		$leadFetchForm.find( "input, select, textarea" ).prop( "disabled", true );
 		$apartmentModsForm.find( "input, select, textarea" ).prop( "disabled", true );
 
 		// Pull values from the form
@@ -194,7 +216,7 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		var email = $form.find( "[ name='enquiry-email' ]" ).val();
 		var unit = $form.find( "[ name='enquiry-unit' ]" ).val();
 		var user = $form.find( "[ name='enquiry-user' ]" ).val();
-		var discount = $apartmentModsForm.find( "[ name='enquiry-discount' ]" ).val();
+		// var discount = $apartmentModsForm.find( "[ name='enquiry-discount' ]" ).val();
 
 		var unitParameters = window.__PRICING_ENGINE__.unitParameters;
 		var unitData = window.__PRICING_ENGINE__.unitData;
@@ -212,6 +234,7 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		requestPayload.email = email;
 		requestPayload.unit = unit;
 		requestPayload.user = user;
+		requestPayload.source = 'Web Pricing';
 
 		// Show the loading indicator
 		var $loadingIndicator = $form.find( ".js_loading_indicator.js_lead_fetch" );
@@ -224,16 +247,40 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 			data: requestPayload
 		} )
 		.done( function ( response ) {
-
-			console.log( response )
-
-			if ( response.status == "alright" ) {
-				console.log( "ya baba!" )
+			var responseFormatted;
+			if ( typeof response != "object" ) {
+				try {
+					responseFormatted = JSON.parse( response )
+				} catch ( e ) {
+					responseFormatted = response
+				}
 			}
+			else {
+				responseFormatted = response;
+			}
+			console.log( responseFormatted )
+			if ( typeof responseFormatted != "object" ) return;
+
+			console.log( "ya baba!" );
+			$form.find( "[ type = 'submit' ]" ).text( "All good." )
+		} )
+		.fail( function ( jqXHR ) {
+			var responseFormatted;
+			try {
+				responseFormatted = JSON.parse( jqXHR.responseText )
+			} catch ( e ) {
+				responseFormatted = jqXHR.responseText;
+			}
+			console.log( responseFormatted )
+
+			console.log( "noihee!" );
+			$form.find( "[ type = 'submit' ]" ).text( "Try again later." )
+		} )
+		.always( function () {
 
 			// Re-enable the input fields
 			$form.find( "input, select, textarea" ).prop( "disabled", false );
-			$enquiryForm.find( "input, select, textarea" ).prop( "disabled", false );
+			$leadFetchForm.find( "input, select, textarea" ).prop( "disabled", false );
 			$apartmentModsForm.find( "input, select, textarea" ).prop( "disabled", false );
 			// Hide the loading indicator
 			$loadingIndicator.addClass( "hidden" );
@@ -274,8 +321,10 @@ window.__PRICING_ENGINE__ = {
 		collapsibleBedroomWall: null,
 		livingDiningSwap: null,
 		poojaRoom: null,
-		storeRoom: null
+		storeRoom: null,
+		carParkSwitch: null
 	},
+	unitConstants: { },
 	unitData: { }
 };
 
@@ -388,8 +437,12 @@ function getComputedApartmentDetails ( workbook, parameters ) {
 
 	var inputRangeValues = [ ];
 	inputRangeValues.push( parameters.unit ? parameters.unit : "" );
-	inputRangeValues.push( parameters.discount ? parameters.discount : "" );
-	inputRangeValues.push( parameters.collapsibleBedroomWall ? parameters.collapsibleBedroomWall : "" );
+	inputRangeValues.push( parameters.discount || "" );
+	inputRangeValues.push( parameters.collapsibleBedroomWall ? 1 : "" );
+	inputRangeValues.push( parameters.livingDiningSwap ? 1 : "" );
+	inputRangeValues.push( parameters.poojaRoom ? 1 : "" );
+	inputRangeValues.push( parameters.storeRoom ? 1 : "" );
+	inputRangeValues.push( parameters.carParkSwitch ? 1 : "" );
 
 	// Resolve the input and output ranges where data will be written and read out of
 	var namedRanges = workbook.Workbook.Names.reduce( function ( ranges, currentRange ) {
@@ -403,8 +456,6 @@ function getComputedApartmentDetails ( workbook, parameters ) {
 	var inputRangeStart = namedRanges.inputRangeStart.cells;
 	var outputRangeSheet = workbook.Sheets[ namedRanges.outputRange.sheet ];
 	var outputRange = XLSX.utils.decode_range( namedRanges.outputRange.cells );
-	// The range values have been hard-coded; need to change it in the original sheet
-	// outputRange = { s: { c: 0, r: 0 }, e: { c: 17, r: 1 } }
 
 	// write in the input
 	XLSX.utils.sheet_add_aoa( workbook.Sheets[ inputRangeSheetName ], [ inputRangeValues ], { origin: inputRangeStart } )
@@ -422,14 +473,6 @@ function getComputedApartmentDetails ( workbook, parameters ) {
 		unit[ key ] = value;
 	}
 
-	// Translate certain values to be human-readable
-	// unit.carpark_type = ( { c: "covered", sc: "semi-covered" } )[ unit.carpark_type ];
-	// unit.mod_toggle_collapsable_bedroom_wall = unit.mod_toggle_collapsable_bedroom_wall == 1;
-	// unit.mod_toggle_living_dining_room_swap = unit.mod_toggle_living_dining_room_swap == 1;
-	// unit.mod_toggle_pooja_room = unit.mod_toggle_pooja_room == 1;
-	// unit.mod_toggle_store_room = unit.mod_toggle_store_room == 1;
-	// unit.mod_toggle_car_park = unit.mod_toggle_car_park == 1;
-
 	return unit;
 
 }
@@ -441,25 +484,32 @@ function getComputedApartmentDetails ( workbook, parameters ) {
  */
 function onCustomApartmentValues ( event ) {
 
+	event.preventDefault();
+
 	// Pull in the custom parameters
 	var discount = $( ".js_rate_per_sqft_discount" ).val();
-	var collapsibleBedroomWall = $( ".js_mod_toggle_collapsable_bedroom_wall input" ).val();
-	// console.log( discount );
+	var collapsibleBedroomWall = $( ".js_mod_toggle_collapsable_bedroom_wall input" ).is( ":checked" );
+	var livingDiningSwap = $( ".js_mod_toggle_living_dining_room_swap input" ).is( ":checked" );
+	var poojaRoom = $( ".js_multipurpose_space select" ).val() == $( ".js_mod_toggle_pooja_room" ).val();
+	var storeRoom = $( ".js_multipurpose_space select" ).val() == $( ".js_mod_toggle_store_room" ).val();
+	var carParkSwitch = $( ".js_mod_car_park_switch input" ).is( ":checked" );
 
-	var unitParameters = window.__PRICING_ENGINE__.unitParameters;
+	var pricingEngine = window.__PRICING_ENGINE__;
+
+	var unitParameters = pricingEngine.unitParameters;
 	unitParameters.discount = discount;
 	unitParameters.collapsibleBedroomWall = collapsibleBedroomWall;
-	var inputData = {
-		unit: unitParameters.unit,
-		discount: discount,
-		collapsibleBedroomWall: collapsibleBedroomWall
-	};
-	var unit = getComputedApartmentDetails( workbook, inputData )
-	window.__PRICING_ENGINE__.unitData = unit;
+	unitParameters.livingDiningSwap = livingDiningSwap;
+	unitParameters.poojaRoom = poojaRoom;
+	unitParameters.storeRoom = storeRoom;
+	unitParameters.carParkSwitch = carParkSwitch;
+
+	pricingEngine.unitData = getComputedApartmentDetails( workbook, unitParameters );
 
 	// Build and plonk in the markup
-	var template = $( ".js_template_unit_information" ).html();
-	var markup = __UTIL__.renderTemplate( template, unit );
-	$( ".js_unit_info" ).html( markup );
+	$( ".js_section_unit_info" ).load(
+		"server/templates/unit-information.php",
+		$.extend( pricingEngine.unitConstants, pricingEngine.unitData, pricingEngine.unitParameters )
+	);
 
 };

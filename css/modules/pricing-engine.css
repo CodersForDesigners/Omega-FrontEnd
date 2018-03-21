@@ -26,17 +26,6 @@
 	cursor: pointer;
 }
 
-.unit-info {
-	/*text-align: center;*/
-}
-
-.unit-mods {
-	display: none;
-}
-.unit-info:not( :empty ) ~ .unit-mods {
-	display: block;
-}
-
 .container-enquiry-form {}
 .enquiry-form {
 	/*text-align: center;*/
