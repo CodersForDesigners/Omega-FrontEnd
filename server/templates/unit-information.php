@@ -93,10 +93,10 @@ extract( $_REQUEST );
 		</div>
 	<?php endif; ?>
 </div>
-<form class="js_unit_discount">
+<form class="unit-discount js_unit_discount">
 	<label>
 		<span>Discount:</span>
-		<input class="js_rate_per_sqft_discount" type="text" name="enquiry-discount" value="<?php echo $discount ?>">
+		<input class="js_rate_per_sqft_discount" type="text" name="enquiry-discount" value="<?php if ( empty( ! $discount ) ) { echo $discount; } else { echo 0; } ?>">
 	</label>
 	<button type="submit">Go</button>
 </form>

@@ -1,0 +1,17 @@
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+## If the URL does not map to an existing file on the file-system,
+## it could be a page other than the home page; those are in the "pages" folder
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteCond "%{DOCUMENT_ROOT}/pages%{REQUEST_URI}\.php" -f
+RewriteRule . /pages%{REQUEST_URI}.php [L]
+
+# the catch-all "else" block
+# forward the request to index.php; it will do the heavy-lifting
+RewriteCond "%{DOCUMENT_ROOT}%{REQUEST_URI}" !-f
+RewriteRule .? index.php [QSA,L]
+
+</IfModule>

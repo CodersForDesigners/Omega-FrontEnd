@@ -9,6 +9,8 @@
 	require ('inc/head.php');
 	require ('inc/lazaro.php'); /* -- Lazaro disclaimer and footer -- */
 
+	$role = $_GET[ 'role' ] ?? 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +29,12 @@
 
 	<?php echo gethead(); ?>
 
+	<?php if ( $role !== 'executive' ) : ?>
+		<style type="text/css">
+			.unit-discount { display: none; }
+		</style>
+	<?php endif; ?>
+
 </head>
 
 <body id="body" class="body">
@@ -44,6 +52,13 @@
 						<img src="/img/logo.svg">
 					</a>
 				</div>
+				<?php if ( $role === 'executive' ) : ?>
+					<div class="columns small-1 small-offset-8">
+						<a href="http://ser.om/logout">
+							Log out
+						</a>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section> <!-- END : Header Section -->
@@ -114,12 +129,14 @@
 				<input id="form-enquiry-unit" type="text" name="enquiry-unit">
 				<br>
 
-				<br>
-				<label for="form-enquiry-user">User:</label>
-				<select id="form-enquiry-user" name="enquiry-user">
-					<option value="customer">customer</option>
-					<option value="executive">executive</option>
-				</select>
+				<?php if ( $role === 'executive' ) : ?>
+					<br>
+					<label for="form-enquiry-user">User:</label>
+					<select id="form-enquiry-user" name="enquiry-user">
+						<option value="customer">customer</option>
+						<option value="executive" <?php if ( $role === 'executive' ) echo 'selected' ?>>executive</option>
+					</select>
+				<?php endif; ?>
 
 				<br>
 				<button type="submit">Send</button>
@@ -155,9 +172,13 @@
 
 <script type="text/javascript" src="js/modules/util.js"></script>
 <script type="text/javascript" src="plugins/Omega/SheetJS/xlsx-core-v0.12.4.min.js"></script>
-<!-- <script type="text/javascript" src="plugins/Omega/FormulaParser/formula-parser-v2.3.2.min.js"></script> -->
 <script type="text/javascript" src="plugins/Omega/xlsx-calc/xlsx-calc-v20170729.min.js"></script>
+<script type="text/javascript" src="plugins/Omega/FormulaParser/formula-parser.js"></script>
+<!-- <script type="text/javascript" src="plugins/Omega/FormulaParser/formula-parser-v2.3.3.js"></script> -->
 <script type="text/javascript" src="plugins/Omega/pricing-engine.js"></script>
+<?php if ( $role === 'executive' ) : ?>
+	<!-- <script type="text/javascript" src="plugins/Omega/pricing-engine-executive.js"></script> -->
+<?php endif; ?>
 
 
 

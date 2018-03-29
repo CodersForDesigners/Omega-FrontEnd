@@ -26,6 +26,12 @@ function formatToINR ( $number ) {
 		$formattedNumber .= '.' . $fractionalPart;
 	}
 
+	if ( preg_match( '/^-/', $formattedNumber ) ) {
+		$formattedNumber = preg_replace( '/^-/', 'minus ₹', $formattedNumber );
+	} else {
+		$formattedNumber = '₹' . $formattedNumber;
+	}
+
 	return $formattedNumber;
 
 }

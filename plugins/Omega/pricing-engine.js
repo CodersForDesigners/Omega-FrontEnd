@@ -1,4 +1,9 @@
 
+/*
+ * Extend XLSX-calc with formulae from the Formula Parser library
+ */
+XLSX_CALC.import_functions( formulaParser );
+
 getWorkbook();
 
 $( document ).on( "load:spreadsheet", function ( event, workbook ) {
@@ -181,9 +186,9 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		.fail( function ( jqXHR ) {
 			var responseFormatted;
 			try {
-				responseFormatted = JSON.parse( jqXHR.responseText )
+				responseFormatted = JSON.parse( jqXHR.statusText )
 			} catch ( e ) {
-				responseFormatted = jqXHR.responseText;
+				responseFormatted = jqXHR.statusText;
 			}
 			console.log( responseFormatted )
 		} )
@@ -216,7 +221,6 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		var email = $form.find( "[ name='enquiry-email' ]" ).val();
 		var unit = $form.find( "[ name='enquiry-unit' ]" ).val();
 		var user = $form.find( "[ name='enquiry-user' ]" ).val();
-		// var discount = $apartmentModsForm.find( "[ name='enquiry-discount' ]" ).val();
 
 		var unitParameters = window.__PRICING_ENGINE__.unitParameters;
 		var unitData = window.__PRICING_ENGINE__.unitData;
@@ -242,9 +246,12 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 
 		// Make the request
 		var ajaxRequest = $.ajax( {
-			url: "http://localhost:9999/enquire",
+			url: "http://ser.om/enquire",
 			method: "GET",
-			data: requestPayload
+			data: requestPayload,
+			xhrFields: {
+				withCredentials: true
+			}
 		} )
 		.done( function ( response ) {
 			var responseFormatted;
@@ -267,9 +274,9 @@ $( document ).on( "load:spreadsheet", function ( event, workbook ) {
 		.fail( function ( jqXHR ) {
 			var responseFormatted;
 			try {
-				responseFormatted = JSON.parse( jqXHR.responseText )
+				responseFormatted = JSON.parse( jqXHR.statusText )
 			} catch ( e ) {
-				responseFormatted = jqXHR.responseText;
+				responseFormatted = jqXHR.statusText;
 			}
 			console.log( responseFormatted )
 
@@ -378,8 +385,8 @@ function getApartmentsBasedOnCriteria ( units, criteria ) {
 			var criterion;
 			for ( criterion in criteria ) {
 				if (
-					criteria[ criterion ]
-					&& unit[ criterion ] != criteria[ criterion ]
+					( criteria[ criterion ] != void 0 )
+					&& ( unit[ criterion ] != criteria[ criterion ] )
 				) {
 					return false;
 				}
